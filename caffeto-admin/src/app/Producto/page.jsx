@@ -1,7 +1,35 @@
+"use client"
+
+import { Typography,Box, TextField } from "@mui/material";
+import { useState } from "react";
+import ChangeStatus from "../Compoments/editarProducto";
+
 export default function productoStatus() {
+
+  const [productoId,setProductoId] = useState(0);
+
     return (
-      <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-        <p>This is the producto estatus page</p>
-      </div>
+      <Box className = "max-h-screen h-screen flex flex-col bg-slate-50">
+        <Box className = "flex flex-col items-center justify-center pt-20 text-center text-black" >
+          <Typography variant="h5">Cambiar Disponibilidad de Producto</Typography>
+        </Box>
+
+        <Box className = "p-6 flex flex-col mt-10 w-72 text-black">
+          <TextField
+            id = "outlined-number"
+            label = "Id del Producto"
+            type = "number"
+            size="large"
+            onChange={(e) => setProductoId(e.target.value)}
+            slotProps={{
+                inputLabel : {
+                  shrink : true,
+                },
+            }}
+          />
+
+          <ChangeStatus id = {productoId}></ChangeStatus>
+        </Box>
+      </Box>
     );
   }
