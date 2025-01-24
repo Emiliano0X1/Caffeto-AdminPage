@@ -27,7 +27,6 @@ export default function productoStatus() {
                 },
             }}
           />
-
           <ChangeStatus id = {productoId}></ChangeStatus>
         </Box>
       </Box>
