@@ -1,7 +1,36 @@
+"use client";
+
+import { Box, Typography, Link, Button } from "@mui/material"
+import {useEffect, useMemo, useState} from "react";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import PedidoCard from "../Compoments/pedidoCard";
+
 export default function pedidoBoard() {
+
+  const [day,setDay] = useState("");
+
+  useEffect(() => {
+    const day = new Date().toLocaleDateString();
+    setDay(day);
+  },[]);
+
     return (
-      <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-        <p>This is the pedido page</p>
-      </div>
+      <Box className = "h-full w-full overflow-scroll bg-slate-50">
+        <Box className = "flex flex-col pt-10 pb-4 text-black text-center">
+
+          <Box className = "mr-64 mb-5">
+            <Link href = "/Dashboard" color="inherit">
+                <ArrowBackIcon color="black" fontSize="small"></ArrowBackIcon>
+            </Link>
+          </Box>
+
+          <Typography variant="h4">Pedidos</Typography>
+          <Typography variant="h8">Fecha de Hoy : {day}</Typography>
+
+        </Box>
+
+        <PedidoCard></PedidoCard>
+
+      </Box>
     );
   }
