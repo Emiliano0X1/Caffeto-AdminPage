@@ -1,6 +1,7 @@
-import { Typography, Box, Card, CardContent,Button } from "@mui/material";
+import { Typography, Box, Card, CardContent,Button,Link } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import React, { useEffect , useState} from "react";
+import PedidoView from "../Pedido/MostrarPedido/page";
 
 
 const PedidoCard = () => {
@@ -56,9 +57,15 @@ useEffect(() => {
                             className="bg-black text-stone-50"
                             variant="contained"
                             size="medium"
-                            onClick={() => selectPedido(pedido)}
-                                >Ver</Button>
+                            onClick={() => selectPedido(pedido)}>
+                            <Link href = "/Pedido/MostrarPedido" color="inherit">
+                                Ver
+                                <PedidoView pedido={pedido}></PedidoView>
+                                </Link>
+                            </Button>
+
                         </Grid>
+                     
 
                         <Grid size={4}> 
                             <Button
@@ -79,6 +86,7 @@ useEffect(() => {
 
         {pedidoSeleccionado && (
             <Typography>OMG</Typography>
+         
         )}
         
      </Box>
