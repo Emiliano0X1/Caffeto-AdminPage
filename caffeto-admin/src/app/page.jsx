@@ -1,9 +1,9 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <p>Hello World</p>
-    </div>
-  );
+import Image from "next/image";
+import PedidoProvider from "./context";
+import { Typography } from "@mui/material";
+
+export default function ClientLayout({ children }) {
+  return <Typography>Hello world</Typography>
 }

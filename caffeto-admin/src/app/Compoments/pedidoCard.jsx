@@ -1,7 +1,11 @@
+"use client";
+
 import { Typography, Box, Card, CardContent,Button,Link } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import React, { useEffect , useState} from "react";
-import PedidoView from "../Pedido/MostrarPedido/page";
+import PedidoView from "../MostrarPedido/page";
+import PedidoProvider, { usePedido } from "../context";
+import { useRouter } from "next/navigation";
 
 
 const PedidoCard = () => {
@@ -29,12 +33,17 @@ useEffect(() => {
     fecthPedidos();
 },[]);
 
-    const [pedidoSeleccionado, setPedidoSeleccionado] = useState(null)
+    const {selectPedido} = usePedido();// context to keep the pedidos
+    const router = useRouter();
 
-    const selectPedido = (pedido) =>{
-        console.log(pedido.id)
-        setPedidoSeleccionado(pedido)
+    const managePedido = (pedido) =>{
+        console.log("Guardando pedido:",pedido);
+        selectPedido(pedido);
+
+        router.push("/MostrarPedido")
+        
     }
+
 
     return(
         <Box className=" relative min-h-screen flex flex-wrap gap-4 items-center justify-start">
@@ -57,11 +66,8 @@ useEffect(() => {
                             className="bg-black text-stone-50"
                             variant="contained"
                             size="medium"
-                            onClick={() => selectPedido(pedido)}>
-                            <Link href = "/Pedido/MostrarPedido" color="inherit">
+                            onClick={() => managePedido(pedido)}>
                                 Ver
-                                <PedidoView pedido={pedido}></PedidoView>
-                                </Link>
                             </Button>
 
                         </Grid>
@@ -83,15 +89,12 @@ useEffect(() => {
                 </React.Fragment>
         </Card>
     )}
-
-        {pedidoSeleccionado && (
-            <Typography>OMG</Typography>
-         
-        )}
         
      </Box>
 
     );
+
+    
 }
 
 
