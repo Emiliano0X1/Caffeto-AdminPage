@@ -6,6 +6,7 @@ import React, { useEffect , useState} from "react";
 import PedidoView from "../MostrarPedido/page";
 import PedidoProvider, { usePedido } from "../context";
 import { useRouter } from "next/navigation";
+import ChangeOptions from "./editarPedidoCard";
 
 
 const PedidoCard = () => {
@@ -36,14 +37,19 @@ useEffect(() => {
     const {selectPedido} = usePedido();// context to keep the pedidos
     const router = useRouter();
 
+    const[open,setOpen] = useState(false);
+
     const managePedido = (pedido) =>{
         console.log("Guardando pedido:",pedido);
         selectPedido(pedido);
 
-        router.push("/MostrarPedido")
-        
+        router.push("/MostrarPedido") 
     }
 
+    const handleOpen= (pedido) => {
+        selectPedido(pedido);
+        setOpen(true);
+    }
 
     return(
         <Box className=" relative min-h-screen flex flex-wrap gap-4 items-center justify-start">
@@ -76,12 +82,14 @@ useEffect(() => {
                         <Grid size={4}> 
                             <Button
                                 className="bg-black text-stone-50"
-                                variant="contained"
+                                variant="outlined"
                                 size="medium"
+                                onClick={() => handleOpen(pedido)}
                             >
                                 Editar</Button>
                             </Grid>
 
+                            {open && ( <ChangeOptions open = {open} setOpen={setOpen}></ChangeOptions>)}
                         </Grid>
                     </Box>
 
@@ -93,9 +101,7 @@ useEffect(() => {
      </Box>
 
     );
-
-    
+  
 }
-
 
 export default PedidoCard;
