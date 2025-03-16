@@ -34,16 +34,45 @@ useEffect(() => {
     fecthPedidos();
 },[]);
 
-    const {selectPedido} = usePedido();// context to keep the pedidos
+const fetchPedido = async (id) => {
+    try{
+        const response = await fetch(`https://cafettoapp-backend.onrender.com/api/v1/pedido/uni/${id}`)
+
+        if(!response.ok){
+            console.log("Response :", response.status)
+        }
+
+        const data = await response.json();
+        console.log("Si jalo el fetch " , data)
+        console.log("Status : ", response.status)
+
+        return {status : response.status, data}
+
+    }catch(error){
+        console.log("Ocurrio un error fatal en el sistema")
+        return 500
+    }
+
+}
+
+    const {selectPedido , pedidoFetching} = usePedido();// context to keep the pedidos
     const router = useRouter();
 
     const[open,setOpen] = useState(false);
 
-    const managePedido = (pedido) =>{
+    const managePedido = async (pedido) =>{
         console.log("Guardando pedido:",pedido);
-        selectPedido(pedido);
+        const {status,data} = await fetchPedido(pedido.id)
 
-        router.push("/MostrarPedido") 
+        if(status === 200){
+            console.log("Pedido recibido", data)
+            pedidoFetching(data)
+            router.push("/MostrarPedido") 
+        }
+
+        else{
+            console.log("Ocurrio un error en el sistema")
+        }
     }
 
     const handleOpen= (pedido) => {

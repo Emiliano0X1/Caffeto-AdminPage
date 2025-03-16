@@ -1,19 +1,16 @@
 "use client";
 
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { usePedido } from "@/app/context";
 
 
 export default function PedidoView(){
 
-    const pedido = usePedido();
-    console.log("Este es el ID: ", pedido);
-
-    const pedidoMain = pedido.pedido;
-
-    const productos = pedidoMain.producto;
-
+    const pedido = usePedido()
+    const pedidoMain = pedido.pedidoMain
+    console.log(pedido.pedidoMain)
+    
     return(
         <Box className="h-screen overflow-scroll bg-slate-50">
             <Box className = "flex flex-col text-center mt-10 justify-center text-black">
@@ -35,7 +32,7 @@ export default function PedidoView(){
 
                 <Box className = "pl-7 pt-2 text-left">
 
-                    {productos.map((producto) => (
+                    {pedidoMain.producto.map((producto) => (
                         <React.Fragment key={producto.id}>
 
                             <Typography variant="h5" color="info" >Productos</Typography>
