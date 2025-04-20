@@ -94,9 +94,7 @@ const fetchPedido = async (id) => {
                         <Typography variant="subtitle2">Total : {pedido.total}</Typography>
                         <Typography variant="subtitle2">Hora del Pedido : {pedido.data}</Typography>
 
-                    <Box className= "absolute left-52 flex gap-2">
-                      <Grid container spacing={2} columns={2} className = "flex">
-                        <Grid size={4}>
+                    <Box className= " absolute flex flex-col gap-3 -mt-24 ml-52">
                         <Button
                             className="bg-black text-stone-50"
                             variant="contained"
@@ -104,11 +102,6 @@ const fetchPedido = async (id) => {
                             onClick={() => managePedido(pedido)}>
                                 Ver
                             </Button>
-
-                        </Grid>
-                     
-
-                        <Grid size={4}> 
                             <Button
                                 className="bg-black text-stone-50"
                                 variant="outlined"
@@ -116,10 +109,9 @@ const fetchPedido = async (id) => {
                                 onClick={() => handleOpen(pedido)}
                             >
                                 Editar</Button>
-                            </Grid>
-
+                    
                             {open && ( <ChangeOptions open = {open} setOpen={setOpen}></ChangeOptions>)}
-                        </Grid>
+                    
                     </Box>
 
                     </CardContent>
