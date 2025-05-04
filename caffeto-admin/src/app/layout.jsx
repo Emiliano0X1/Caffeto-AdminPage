@@ -1,9 +1,7 @@
 import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { PedidoProvider } from "./context";
-import ClientLayout from "./page";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

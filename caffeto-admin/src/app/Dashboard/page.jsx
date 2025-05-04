@@ -1,3 +1,4 @@
+"use client";
 
 import { Button, Box} from "@mui/material";
 import Title from "../Compoments/header";
