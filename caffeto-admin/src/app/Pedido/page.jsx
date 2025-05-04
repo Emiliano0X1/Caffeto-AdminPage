@@ -5,6 +5,8 @@ import {useEffect, useMemo, useState} from "react";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PedidoCard from "../Compoments/pedidoCard";
 
+export const dynamic = "force-dynamic"; 
+
 export default function pedidoBoard() {
 
   const [day,setDay] = useState("");
@@ -19,8 +21,8 @@ export default function pedidoBoard() {
         <Box className = "flex flex-col pt-10 pb-4 text-black text-center">
 
           <Box className = "mr-64 mb-5">
-            <Link href = "/Dashboard" color="inherit">
-                <ArrowBackIcon color="black" fontSize="small"></ArrowBackIcon>
+            <Link href = "/Dashboard" color="inherit" passHref>
+               <a><ArrowBackIcon color="black" fontSize="small"></ArrowBackIcon></a>
             </Link>
           </Box>
 
