@@ -1,9 +1,10 @@
 "use client";
 
-import { Box, Typography, Link, Button } from "@mui/material"
+import { Box, Typography,Button } from "@mui/material"
 import {useEffect, useMemo, useState} from "react";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PedidoCard from "../Compoments/pedidoCard";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic"; 
 
