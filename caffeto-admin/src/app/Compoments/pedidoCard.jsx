@@ -94,7 +94,7 @@ const fetchPedido = async (id) => {
                         <Typography variant="subtitle2">Total : {pedido.total}</Typography>
                         <Typography variant="subtitle2">Hora del Pedido : {pedido.data}</Typography>
 
-                    <Box className= " absolute flex flex-col gap-3 -mt-24 ml-52">
+                    <Box className= " absolute flex flex-col gap-3 -mt-24 ml-64">
                         <Button
                             className="bg-black text-stone-50"
                             variant="contained"
