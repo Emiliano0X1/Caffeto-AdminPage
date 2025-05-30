@@ -73,7 +73,7 @@ export default function ChangeStatus({id}){
 
     return (
         <Box className= "flex flex-col mt-10">
-            <Typography>Seleccione el nuevo estatus</Typography>
+            <Typography className="font-bricolage">Seleccione el nuevo estatus</Typography>
 
           <Box className = "flex flex-col mt-10">
             <TextField
@@ -92,12 +92,12 @@ export default function ChangeStatus({id}){
            </Box>
 
            {alert && <Alert severity = {alert.type}>{alert.message}</Alert>}
-            {producto && <Alert severity="info">El producto esta disponible ? : {producto.active}</Alert>}
+            {producto && <Alert severity="info" className="font-bricolage">El producto esta disponible ? : {producto.active}</Alert>}
 
            <Box className = "flex flex-col items-center justify-center">
 
               <Button
-                className=" ml-10 mt-32 mb-2.5 bg-slate-950 text-slate-50 text-xs w-60"
+                className=" ml-10 mt-32 mb-2.5 bg-slate-950 text-slate-50 text-xs w-60 font-bricolage"
                 size="large"
                 variant="contained"
                 onClick={() => changeStatus(id,status,setAlert,setProducto)}

@@ -2,6 +2,7 @@ import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { PedidoProvider } from "./context";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import MUIProvider from "./muiTheme";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,12 +30,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} antialiased`}
       >
-        <ThemeProvider>
-          <CssBaseline />
-          <PedidoProvider>
-            {children}
-          </PedidoProvider>
-        </ThemeProvider>
+        <MUIProvider>
+          <PedidoProvider>{children}</PedidoProvider>
+        </MUIProvider>
       </body>
     </html>
   );

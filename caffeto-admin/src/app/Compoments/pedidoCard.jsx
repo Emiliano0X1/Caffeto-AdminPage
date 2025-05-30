@@ -81,29 +81,29 @@ const fetchPedido = async (id) => {
     }
 
     return(
-        <Box className=" relative min-h-screen flex flex-wrap gap-4 items-center justify-start">
+        <Box className=" relative min-h-screen flex flex-wrap gap-4 items-center justify-start ml-7 mr-7">
 
         {pedidos.map((pedido) => 
             <Card  key = {pedido.id} className="h-auto w-full mt-5 bg-slate-300 shadow-lg rounded-lg">
                 <React.Fragment>
 
                     <CardContent>
-                        <Typography variant="subtitle1" color="info">Producto #{pedido.id}</Typography>
-                        <Typography variant="subtitle2">Cliente : {pedido.cliente.name} </Typography>
-                        <Typography variant="subtitle2">Estatus : {pedido.status} </Typography>
-                        <Typography variant="subtitle2">Total : {pedido.total}</Typography>
-                        <Typography variant="subtitle2">Hora del Pedido : {pedido.data}</Typography>
+                        <Typography variant="subtitle1" color="info" className="font-bricolage">Producto #{pedido.id}</Typography>
+                        <Typography variant="subtitle2" className="font-bricolage">Cliente : {pedido.cliente.name} </Typography>
+                        <Typography variant="subtitle2" className="font-bricolage">Estatus : {pedido.status} </Typography>
+                        <Typography variant="subtitle2" className="font-bricolage">Total : {pedido.total}</Typography>
+                        <Typography variant="subtitle2" className="font-bricolage">Hora del Pedido : {pedido.data}</Typography>
 
                     <Box className= " absolute flex flex-col gap-3 -mt-24 ml-64">
                         <Button
-                            className="bg-black text-stone-50"
+                            className="bg-black text-stone-50 font-bricolage"
                             variant="contained"
                             size="medium"
                             onClick={() => managePedido(pedido)}>
                                 Ver
                             </Button>
                             <Button
-                                className="bg-black text-stone-50"
+                                className="bg-black text-stone-50 font-bricolage"
                                 variant="outlined"
                                 size="medium"
                                 onClick={() => handleOpen(pedido)}

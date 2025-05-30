@@ -17,6 +17,7 @@ export default function HomeMain() {
               variant="contained"
               >Ver Pedidos</Button>
           </Link>
+          
           <Link href = "/Producto" replace color="inherit">
             <Button
               className="mt-3.5 bg-slate-950 text-slate-50 text-xs w-60"

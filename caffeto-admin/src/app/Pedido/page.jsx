@@ -20,15 +20,14 @@ export default function pedidoBoard() {
     return (
       <Box className = "h-full w-full overflow-scroll bg-slate-50">
         <Box className = "flex flex-col pt-10 pb-4 text-black text-center">
-
           <Box className = "mr-64 mb-5">
             <Link href = "/Dashboard" color="inherit" passHref>
-               <a><ArrowBackIcon color="black" fontSize="small"></ArrowBackIcon></a>
+               <ArrowBackIcon color="black" fontSize="small"></ArrowBackIcon>
             </Link>
           </Box>
 
-          <Typography variant="h4">Pedidos</Typography>
-          <Typography variant="h8">Fecha de Hoy : {day}</Typography>
+          <Typography variant="h4" className="font-bricolage">Pedidos</Typography>
+          <Typography variant="h8" className="font-bricolage">Fecha de Hoy : {day}</Typography>
 
         </Box>
 

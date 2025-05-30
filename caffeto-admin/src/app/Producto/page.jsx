@@ -21,13 +21,14 @@ export default function productoStatus() {
             </Link>
           </Box>
 
-          <Typography variant="h5">Cambiar Disponibilidad de Producto</Typography>
+          <Typography variant="h5" className="font-bricolage">Cambiar Disponibilidad de Producto</Typography>
         </Box>
         
 
         <Box className = "p-6 flex flex-col mt-10 w-72 text-black">
           <TextField
             id = "outlined-number"
+            className="font-bricolage"
             label = "Id del Producto"
             type = "number"
             size="large"
