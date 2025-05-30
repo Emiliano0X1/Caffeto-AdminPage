@@ -81,7 +81,7 @@ const fetchPedido = async (id) => {
     }
 
     return(
-        <Box className=" relative min-h-screen flex flex-wrap gap-4 items-center justify-start ml-7 mr-7">
+        <Box className=" relative min-h-screen flex flex-wrap gap-4 items-center justify-start ml-5 mr-5">
 
         {pedidos.map((pedido) => 
             <Card  key = {pedido.id} className="h-auto w-full mt-5 bg-slate-300 shadow-lg rounded-lg">
