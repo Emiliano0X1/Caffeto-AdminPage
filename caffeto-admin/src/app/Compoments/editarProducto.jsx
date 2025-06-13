@@ -72,24 +72,24 @@ export default function ChangeStatus({id}){
     const[producto,setProducto] = useState(null);
 
     return (
-        <Box className= "flex flex-col mt-10">
-            <Typography className="font-bricolage">Seleccione el nuevo estatus</Typography>
+        <Box className= "flex flex-col justify-center items-center mt-10">
+            <Typography className="font-bricolage text-center" variant="subtitle1">Seleccione el nuevo estatus</Typography>
 
-          <Box className = "flex flex-col mt-10">
+          <Box className = "flex justify-center flex-col w-full mt-10">
             <TextField
                 id="outlined-select-currency"
                 select
                 label="Seleccione"
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-        >
-          {currencies.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-           </Box>
+            >
+              {currencies.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
 
            {alert && <Alert severity = {alert.type}>{alert.message}</Alert>}
             {producto && <Alert severity="info" className="font-bricolage">El producto esta disponible ? : {producto.active}</Alert>}
@@ -97,7 +97,7 @@ export default function ChangeStatus({id}){
            <Box className = "flex flex-col items-center justify-center">
 
               <Button
-                className=" ml-10 mt-32 mb-2.5 bg-slate-950 text-slate-50 text-xs w-60 font-bricolage"
+                className="mt-32 bg-slate-950 text-slate-50 text-xs w-60 font-bricolage"
                 size="large"
                 variant="contained"
                 onClick={() => changeStatus(id,status,setAlert,setProducto)}

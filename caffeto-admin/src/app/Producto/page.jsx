@@ -11,27 +11,26 @@ export default function productoStatus() {
   const [productoId,setProductoId] = useState(0);
 
     return (
-      <Box className = "max-h-screen h-screen flex flex-col bg-slate-50">
+      <Box className = "min-h-screen w-full bg-slate-50"> 
 
-        <Box className = "flex flex-col items-center justify-center pt-20 text-center text-black" >
-
-          <Box className = "mr-64 mb-5">
+        <Box className = "flex flex-col pt-10 text-black" >
+          <Box className = "flex justify-start p-5">
             <Link href = "/Dashboard" color="inherit">
-              <ArrowBackIcon color="black" fontSize="large"></ArrowBackIcon>
+              <ArrowBackIcon color="black" fontSize="large" className="flex justify-start"></ArrowBackIcon>
             </Link>
           </Box>
 
-          <Typography variant="h5" className="font-bricolage">Cambiar Disponibilidad de Producto</Typography>
+          <Typography variant="h5" className="font-bricolage text-center">Cambiar Disponibilidad de <br></br> Producto</Typography>
         </Box>
         
 
-        <Box className = "p-6 flex flex-col mt-10 w-72 text-black">
+        <Box className = "p-6 flex flex-col mt-10 text-black">
           <TextField
             id = "outlined-number"
             className="font-bricolage"
             label = "Id del Producto"
             type = "number"
-            size="large"
+            size="medium"
             onChange={(e) => setProductoId(e.target.value)}
             slotProps={{
                 inputLabel : {
@@ -41,6 +40,7 @@ export default function productoStatus() {
           />
           <ChangeStatus id = {productoId}></ChangeStatus>
         </Box>
+
       </Box>
     );
   }

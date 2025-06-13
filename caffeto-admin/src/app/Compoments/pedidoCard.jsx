@@ -1,19 +1,17 @@
 "use client";
 
 import { Typography, Box, Card, CardContent,Button,Link } from "@mui/material";
-import Grid from '@mui/material/Grid2';
 import React, { useEffect , useState} from "react";
-import PedidoView from "../MostrarPedido/page";
-import PedidoProvider, { usePedido } from "../context";
 import { useRouter } from "next/navigation";
 import ChangeOptions from "./editarPedidoCard";
+import { usePedido } from "../context";
 
 
 const PedidoCard = () => {
 
  const [pedidos,setPedidos] = useState([]);
 
- const fecthPedidos = async () => {
+ const fecthPedidos = async (status) => {
     try{
         const response = await fetch("https://cafettoapp-backend.onrender.com/api/v1/pedido");
 
@@ -82,42 +80,43 @@ const fetchPedido = async (id) => {
 
     return(
         <Box className=" relative min-h-screen flex flex-wrap gap-4 items-center justify-start ml-5 mr-5">
+            {pedidos.map((pedido) => 
+                
+                <Card  key = {pedido.id} className="h-auto w-full mt-5 bg-slate-300 shadow-lg rounded-lg">
+                    <React.Fragment>
 
-        {pedidos.map((pedido) => 
-            <Card  key = {pedido.id} className="h-auto w-full mt-5 bg-slate-300 shadow-lg rounded-lg">
-                <React.Fragment>
+                        <CardContent>
+                            <Typography variant="subtitle1" color="info" className="font-bricolage">Producto #{pedido.id}</Typography>
+                            <Typography variant="subtitle2" className="font-bricolage">Cliente : {pedido.cliente.name} </Typography>
+                            <Typography variant="subtitle2" className="font-bricolage">Estatus : {pedido.status} </Typography>
+                            <Typography variant="subtitle2" className="font-bricolage">Total : {pedido.total}</Typography>
+                            <Typography variant="subtitle2" className="font-bricolage">Hora del Pedido : {pedido.data}</Typography>
 
-                    <CardContent>
-                        <Typography variant="subtitle1" color="info" className="font-bricolage">Producto #{pedido.id}</Typography>
-                        <Typography variant="subtitle2" className="font-bricolage">Cliente : {pedido.cliente.name} </Typography>
-                        <Typography variant="subtitle2" className="font-bricolage">Estatus : {pedido.status} </Typography>
-                        <Typography variant="subtitle2" className="font-bricolage">Total : {pedido.total}</Typography>
-                        <Typography variant="subtitle2" className="font-bricolage">Hora del Pedido : {pedido.data}</Typography>
-
-                    <Box className= " absolute flex flex-col gap-3 -mt-24 ml-64">
-                        <Button
-                            className="bg-black text-stone-50 font-bricolage"
-                            variant="contained"
-                            size="medium"
-                            onClick={() => managePedido(pedido)}>
-                                Ver
-                            </Button>
+                        <Box className= " absolute flex flex-col gap-3 -mt-24 ml-64">
                             <Button
                                 className="bg-black text-stone-50 font-bricolage"
-                                variant="outlined"
+                                variant="contained"
                                 size="medium"
-                                onClick={() => handleOpen(pedido)}
-                            >
-                                Editar</Button>
-                    
-                            {open && ( <ChangeOptions open = {open} setOpen={setOpen}></ChangeOptions>)}
-                    
-                    </Box>
+                                onClick={() => managePedido(pedido)}>
+                                    Ver
+                                </Button>
+                                <Button
+                                    className="bg-black text-stone-50 font-bricolage"
+                                    variant="outlined"
+                                    size="medium"
+                                    onClick={() => handleOpen(pedido)}
+                                >
+                                    Editar</Button>
+                        
+                                {open && ( <ChangeOptions open = {open} setOpen={setOpen}></ChangeOptions>)}
+                        
+                        </Box>
 
-                    </CardContent>
-                </React.Fragment>
-        </Card>
-    )}
+                        </CardContent>
+                    </React.Fragment>
+            </Card>
+            
+        )}
         
      </Box>
 

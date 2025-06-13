@@ -37,7 +37,7 @@ export default function PedidoView(){
         <Box className="h-screen overflow-scroll bg-slate-50">
             <Box className = "flex flex-col text-center mt-10 justify-center text-black">
 
-            {pedidoMain.cliente ? (
+            {pedidoMain.cliente? (
                 <>
 
                 <Typography variant="h3" className="font-bricolage mt-3">Pedido # {pedidoMain.id}</Typography>
