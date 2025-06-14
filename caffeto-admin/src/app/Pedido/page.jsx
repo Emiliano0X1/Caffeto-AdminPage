@@ -20,10 +20,10 @@ export default function pedidoBoard() {
     return (
       <Box className = "h-full w-full overflow-scroll bg-slate-50">
         <Box className = "flex flex-col pt-10 pb-4 text-black text-center">
-          <Box className = "mr-64 mb-5">
-            <Link href = "/Dashboard" color="inherit" passHref>
-               <ArrowBackIcon color="black" fontSize="small"></ArrowBackIcon>
-            </Link>
+          <Box className = "flex justify-start pl-5">
+              <Link href = "/Dashboard" color="inherit">
+                <ArrowBackIcon color="black" fontSize="large" className="flex justify-start"></ArrowBackIcon>
+              </Link>
           </Box>
 
           <Typography variant="h4" className="font-bricolage">Pedidos</Typography>

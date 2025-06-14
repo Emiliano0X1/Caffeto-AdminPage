@@ -1,9 +1,10 @@
 "use client";
 
 import React, {useContext, useEffect, useState} from "react";
-import { Box, Typography, Button , Card, CardContent, Divider} from "@mui/material";
+import { Box, Typography, Button , Card, CardContent, Divider, Link} from "@mui/material";
 import Image from "next/image"
 import { usePedido } from "@/app/context";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 export default function PedidoView(){
@@ -18,7 +19,7 @@ export default function PedidoView(){
 
         if(type === 'Frappe') return "/Icons/frappeIcon.jpg";
 
-        else if(type === 'Clasico') return "/Icons/noExist.png";
+        else if(type === 'Clasico') return "/Icons/clasicoIcon.png";
 
         else if(type === 'Muffin') return "/Icons/muffinIcon.png";
 
@@ -28,14 +29,32 @@ export default function PedidoView(){
 
         else if(type === 'Smoothie') return "/Icons/SmothieIcon.png";
 
-        else if(type === 'Waffle' || type === 'Waffle-Nutella') return "/Icons/waffleIcon.jpg"
+        else if(type === 'Waffle' || type === 'Waffle-Nutella') return "/Icons/waffleIcon.jpg";
 
-        else return "/Icons/frappeIcon.jpg" //Cambiar por favor faltan mas iconos
+        else if(type === 'Tisana') return "/Icons/tisanaIcon.jpg";
+
+        else if(type === 'Tes') return "/Icons/teIcon.jpg";
+
+        else if(type === 'Soda Italiana') return "/Icons/sodaIcon.jpg";
+
+        else if(type === 'Postre') return "/Icons/postreIcon.png";
+
+        else if(type === 'Mini') return "/Icons/miniIcon.png";
+
+        else if(type === 'Galleta') return "/Icons/galletaIcon.png"
+
+        else return "/Icons/noExist.png" //Cambiar por favor faltan mas iconos
     }
-    
+  
     return(
         <Box className="h-screen overflow-scroll bg-slate-50">
             <Box className = "flex flex-col text-center mt-10 justify-center text-black">
+
+            <Box className = "flex justify-start pl-5">
+                <Link href = "/Pedido" color="inherit">
+                    <ArrowBackIcon color="black" fontSize="large" className="flex justify-start"></ArrowBackIcon>
+                </Link>
+            </Box>
 
             {pedidoMain.cliente? (
                 <>
@@ -43,7 +62,7 @@ export default function PedidoView(){
                 <Typography variant="h3" className="font-bricolage mt-3">Pedido # {pedidoMain.id}</Typography>
                 
             <Box className = "mt-10 flex justify-center h-auto">
-                <Card variant="outlined" className="border-black rounded-3xl shadow-lg w-11/12">
+                <Card variant="outlined" className="border-black rounded-3xl shadow-lg w-11/12" key = {pedidoMain.cliente.id}>
                   <CardContent>
                     <Box className = "p-3 text-left">
                         <Typography variant="h6" color="black" className="font-bricolage" >Informacion del Cliente</Typography>
@@ -58,7 +77,7 @@ export default function PedidoView(){
 
 
             <Box className = "mt-10 flex justify-center h-auto">
-                <Card variant="outlined" className="border-black rounded-3xl shadow-lg w-11/12">
+                <Card variant="outlined" className="border-black rounded-3xl shadow-lg w-11/12" key = {pedidoMain.id}>
                   <CardContent>
                     <Box className = "p-3 text-left">
                         <Typography variant="h6" color="black" className="font-bricolage">Informacion del Pedido</Typography>
@@ -73,11 +92,10 @@ export default function PedidoView(){
                     <Typography variant="h5" color="black" className="font-bricolage text-center mt-10">Productos</Typography>
                         {pedidoMain.producto.map((producto) => (
 
-                        <Box className = " relative mt-10 flex justify-center h-auto">
+                        <Box key = {producto.id} className = " relative mt-10 flex justify-center h-auto">
                             <Card variant="outlined" className="border-black rounded-3xl shadow-lg w-11/12">
                                 <CardContent>
                                     <Box className = "pl-3 text-left">
-                                        <React.Fragment key={producto.id}>
                                             <Typography variant = "h6" color="black" className="font-bricolage">Producto #{producto.id}</Typography>
                                             <Typography className="font-bricolage text-base">Nombre : {producto.producto.name}</Typography>
                                             {/*<Typography className="font-bricolage text-base"> Precio Unitario: $ {producto.producto.price} pesos</Typography> */}
@@ -95,9 +113,9 @@ export default function PedidoView(){
 
                                             <Image 
                                                 src={getImageSource(producto.producto.type)}
-                                                width={110} 
-                                                height={110} 
-                                                className="absolute -mt-44 ml-48 " 
+                                                width={100} 
+                                                height={100} 
+                                                className="absolute -mt-40 ml-52 " 
                                                 alt="frappeICON" 
                                                 />
                                         
@@ -111,10 +129,7 @@ export default function PedidoView(){
                                             <Divider className="my-4" sx = {{borderStyle : 'dashed', borderWidth : "2px"}}></Divider>
 
                                             </>
-
-
-                                            ))}
-                                        </React.Fragment>
+                                        ))}
                                     </Box>
                                 </CardContent>
                             </Card>

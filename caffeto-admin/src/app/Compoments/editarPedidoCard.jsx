@@ -1,6 +1,6 @@
 "use client";
 
-import { Dialog, DialogContent, DialogContentText, DialogTitle, Typography, TextField, MenuItem, DialogActions , Button} from "@mui/material";
+import { Dialog, DialogContent, DialogContentText, DialogTitle, MenuItem, DialogActions , Button} from "@mui/material";
 import { usePedido } from "../context";
 import React , { useState } from "react";
 import pedidoBoard from "../Pedido/page";

@@ -11,7 +11,7 @@ const PedidoCard = () => {
 
  const [pedidos,setPedidos] = useState([]);
 
- const fecthPedidos = async (status) => {
+ const fecthPedidos = async () => {
     try{
         const response = await fetch("https://cafettoapp-backend.onrender.com/api/v1/pedido");
 
@@ -79,14 +79,14 @@ const fetchPedido = async (id) => {
     }
 
     return(
-        <Box className=" relative min-h-screen flex flex-wrap gap-4 items-center justify-start ml-5 mr-5">
+        <Box className=" relative min-h-screen flex flex-wrap gap-4 items-center justify-start ml-5 mr-5 mt-10">
             {pedidos.map((pedido) => 
                 
-                <Card  key = {pedido.id} className="h-auto w-full mt-5 bg-slate-300 shadow-lg rounded-lg">
+                <Card  key = {pedido.id} variant = "outlined" className="border-black rounded-3xl shadow-lg w-full">
                     <React.Fragment>
 
                         <CardContent>
-                            <Typography variant="subtitle1" color="info" className="font-bricolage">Producto #{pedido.id}</Typography>
+                            <Typography variant="subtitle1" color="black" className="font-bricolage">Producto #{pedido.id}</Typography>
                             <Typography variant="subtitle2" className="font-bricolage">Cliente : {pedido.cliente.name} </Typography>
                             <Typography variant="subtitle2" className="font-bricolage">Estatus : {pedido.status} </Typography>
                             <Typography variant="subtitle2" className="font-bricolage">Total : {pedido.total}</Typography>
