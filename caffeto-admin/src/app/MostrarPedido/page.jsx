@@ -56,6 +56,9 @@ export default function PedidoView(){
                 </Link>
             </Box>
 
+            {pedidoMain.cliente? (
+                <>
+
             <Typography variant="h3" className="font-bricolage mt-3">Pedido # {pedidoMain.id}</Typography>
 
             <Box className = "mt-10 flex justify-center h-auto">
@@ -118,9 +121,6 @@ export default function PedidoView(){
                         </Box>
                     ))} 
 
-
-                {pedidoMain.cliente? (
-                <>
 
             <Typography variant="h5" color="black" className="font-bricolage text-center mt-10">Información del Cliente</Typography>
             <Box className = "mt-10 flex justify-center h-auto">
