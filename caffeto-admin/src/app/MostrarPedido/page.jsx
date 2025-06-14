@@ -56,25 +56,7 @@ export default function PedidoView(){
                 </Link>
             </Box>
 
-            {pedidoMain.cliente? (
-                <>
-
-                <Typography variant="h3" className="font-bricolage mt-3">Pedido # {pedidoMain.id}</Typography>
-                
-            <Box className = "mt-10 flex justify-center h-auto">
-                <Card variant="outlined" className="border-black rounded-3xl shadow-lg w-11/12" key = {pedidoMain.cliente.id}>
-                  <CardContent>
-                    <Box className = "p-3 text-left">
-                        <Typography variant="h6" color="black" className="font-bricolage" >Informacion del Cliente</Typography>
-                        <Typography className="font-bricolage text-base">Nombre : {pedidoMain.cliente.name}</Typography>
-                        <Typography className="font-bricolage text-base"> Telefono : {pedidoMain.cliente.phoneNumber}</Typography>
-                        <Typography className="font-bricolage text-base">Direccion : {pedidoMain.cliente.location}</Typography>
-                    </Box> 
-                    </CardContent> 
-                </Card>
-
-            </Box> 
-
+            <Typography variant="h3" className="font-bricolage mt-3">Pedido # {pedidoMain.id}</Typography>
 
             <Box className = "mt-10 flex justify-center h-auto">
                 <Card variant="outlined" className="border-black rounded-3xl shadow-lg w-11/12" key = {pedidoMain.id}>
@@ -134,7 +116,26 @@ export default function PedidoView(){
                                 </CardContent>
                             </Card>
                         </Box>
-                    ))}   
+                    ))} 
+
+
+                {pedidoMain.cliente? (
+                <>
+
+            <Typography variant="h5" color="black" className="font-bricolage text-center mt-10">Información del Cliente</Typography>
+            <Box className = "mt-10 flex justify-center h-auto">
+                <Card variant="outlined" className="border-black rounded-3xl shadow-lg w-11/12" key = {pedidoMain.cliente.id}>
+                  <CardContent>
+                    <Box className = "p-3 text-left">
+                        <Typography variant="h6" color="black" className="font-bricolage" >Informacion del Cliente</Typography>
+                        <Typography className="font-bricolage text-base">Nombre : {pedidoMain.cliente.name}</Typography>
+                        <Typography className="font-bricolage text-base"> Telefono : {pedidoMain.cliente.phoneNumber}</Typography>
+                        <Typography className="font-bricolage text-base">Direccion : {pedidoMain.cliente.location}</Typography>
+                    </Box> 
+                    </CardContent> 
+                </Card>
+
+            </Box>   
                 </>
                 
               ) : (
