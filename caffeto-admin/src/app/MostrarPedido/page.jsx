@@ -11,7 +11,7 @@ export default function PedidoView(){
 
     const pedido = usePedido()
     const pedidoMain = pedido.pedidoMain
-    //console.log(pedido)
+    console.log(pedido)
 
     //Funcion para poner icono dependiendo del tipo de producto
 
@@ -59,14 +59,14 @@ export default function PedidoView(){
             {pedidoMain.cliente? (
                 <>
 
-            <Typography variant="h3" className="font-bricolage mt-3">Pedido # {pedidoMain.id}</Typography>
+            <Typography variant="h3" className="font-bricolage mt-3">Pedido # {pedidoMain.pedido_id}</Typography>
 
             <Box className = "mt-10 flex justify-center h-auto">
                 <Card variant="outlined" className="border-black rounded-3xl shadow-lg w-11/12" key = {pedidoMain.id}>
                   <CardContent>
                     <Box className = "p-3 text-left">
                         <Typography variant="h6" color="black" className="font-bricolage">Informacion del Pedido</Typography>
-                        <Typography className="font-bricolage text-base">Fecha : {pedidoMain.data}</Typography>
+                        <Typography className="font-bricolage text-base">Fecha : {pedidoMain.date}</Typography>
                         <Typography className="font-bricolage text-base"> Total : $ {pedidoMain.total} pesos</Typography>
                         <Typography className="font-bricolage text-base"> Estatus : {pedidoMain.status}</Typography>
                     </Box> 
@@ -75,7 +75,7 @@ export default function PedidoView(){
             </Box>   
 
                     <Typography variant="h5" color="black" className="font-bricolage text-center mt-10">Productos</Typography>
-                        {pedidoMain.producto.map((producto) => (
+                        {pedidoMain.pedidoProductos.map((producto) => (
 
                         <Box key = {producto.id} className = " relative mt-10 flex justify-center h-auto">
                             <Card variant="outlined" className="border-black rounded-3xl shadow-lg w-11/12">
@@ -124,13 +124,13 @@ export default function PedidoView(){
 
             <Typography variant="h5" color="black" className="font-bricolage text-center mt-10">Información del Cliente</Typography>
             <Box className = "mt-10 flex justify-center h-auto">
-                <Card variant="outlined" className="border-black rounded-3xl shadow-lg w-11/12" key = {pedidoMain.cliente.id}>
+                <Card variant="outlined" className="border-black rounded-3xl shadow-lg w-11/12" key = {pedidoMain.cliente.cliente_id}>
                   <CardContent>
                     <Box className = "p-3 text-left">
                         <Typography variant="h6" color="black" className="font-bricolage" >Informacion del Cliente</Typography>
-                        <Typography className="font-bricolage text-base">Nombre : {pedidoMain.cliente.name}</Typography>
-                        <Typography className="font-bricolage text-base"> Telefono : {pedidoMain.cliente.phoneNumber}</Typography>
-                        <Typography className="font-bricolage text-base">Direccion : {pedidoMain.cliente.location}</Typography>
+                        <Typography className="font-bricolage text-base">Nombre : {pedidoMain.cliente.cliente_name}</Typography>
+                        <Typography className="font-bricolage text-base"> Telefono : {pedidoMain.cliente.cliente_telefono}</Typography>
+                        <Typography className="font-bricolage text-base">Direccion : {pedidoMain.cliente.cliente_locacion}</Typography>
                     </Box> 
                     </CardContent> 
                 </Card>
