@@ -59,6 +59,9 @@ export default function SeparatorByStatus(){
                 >
                     <Typography component='span' variant="subtitle" className="font-bricolage">Pedidos Entregados</Typography>
                 </AccordionSummary>
+                <AccordionDetails>
+                    <PedidoCard status='ENTREGADO'></PedidoCard>
+                </AccordionDetails>
             </Accordion>
 
             <Accordion expanded = {expanded === 'panel5'} onChange={handleChange('panel5')}>
@@ -69,6 +72,9 @@ export default function SeparatorByStatus(){
                     <Typography component='span' variant="subtitle1" className="font-bricolage">Pedidos Cancelados</Typography>
 
                 </AccordionSummary>
+                <AccordionDetails>
+                    <PedidoCard status='CANCELADO'></PedidoCard>
+                </AccordionDetails>
 
             </Accordion>
         </Box>
