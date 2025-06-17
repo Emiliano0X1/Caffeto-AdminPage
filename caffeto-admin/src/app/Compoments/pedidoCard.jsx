@@ -6,14 +6,13 @@ import { useRouter } from "next/navigation";
 import ChangeOptions from "./editarPedidoCard";
 import { usePedido } from "../context";
 
-
-const PedidoCard = () => {
+const PedidoCard = ({status}) => {
 
  const [pedidos,setPedidos] = useState([]);
 
  const fecthPedidos = async () => {
     try{
-        const response = await fetch("https://cafettoapp-backend.onrender.com/api/v1/pedido");
+        const response = await fetch(`https://cafettoapp-backend.onrender.com/api/v1/pedido/status?status=${status}`);
 
         if(!response.ok){
             console.log("No existe el pedido");
@@ -21,7 +20,7 @@ const PedidoCard = () => {
 
         const data = await response.json();
         setPedidos(data)
-        console.log(data);
+        //console.log(data);
 
     }catch(error){
         console.log(error);
@@ -41,7 +40,7 @@ const fetchPedido = async (id) => {
         }
 
         const data = await response.json();
-        console.log("Si jalo el fetch " , data)
+        console.log("Si jalo el fetch")
         console.log("Status : ", response.status)
 
         return {status : response.status, data}
@@ -60,10 +59,10 @@ const fetchPedido = async (id) => {
 
     const managePedido = async (pedido) =>{
         console.log("Guardando pedido:",pedido);
-        const {status,data} = await fetchPedido(pedido.id)
+        const {status,data} = await fetchPedido(pedido.pedido_id)
 
         if(status === 200){
-            console.log("Pedido recibido", data)
+            //console.log("Pedido recibido", data)
             pedidoFetching(data)
             router.push("/MostrarPedido") 
         }
@@ -79,20 +78,20 @@ const fetchPedido = async (id) => {
     }
 
     return(
-        <Box className=" relative min-h-screen flex flex-wrap gap-4 items-center justify-start ml-5 mr-5 mt-10">
+        <Box className=" relative min-h-screen flex flex-col gap-4 items-center justify-start ">
             {pedidos.map((pedido) => 
                 
-                <Card  key = {pedido.id} variant = "outlined" className="border-black rounded-3xl shadow-lg w-full">
+                <Card  key = {pedido.pedido_id} variant = "outlined" className="border-black rounded-3xl shadow-lg w-full">
                     <React.Fragment>
 
                         <CardContent>
-                            <Typography variant="subtitle1" color="black" className="font-bricolage">Producto #{pedido.id}</Typography>
-                            <Typography variant="subtitle2" className="font-bricolage">Cliente : {pedido.cliente.name} </Typography>
+                            <Typography variant="subtitle1" color="black" className="font-bricolage">Producto #{pedido.pedido_id}</Typography>
+                            <Typography variant="subtitle2" className="font-bricolage">Cliente : {pedido.cliente.cliente_name} </Typography>
                             <Typography variant="subtitle2" className="font-bricolage">Estatus : {pedido.status} </Typography>
                             <Typography variant="subtitle2" className="font-bricolage">Total : {pedido.total}</Typography>
-                            <Typography variant="subtitle2" className="font-bricolage">Hora del Pedido : {pedido.data}</Typography>
+                            <Typography variant="subtitle2" className="font-bricolage">Hora del Pedido : {pedido.date}</Typography>
 
-                        <Box className= " absolute flex flex-col gap-3 -mt-24 ml-64">
+                        <Box className= " absolute flex flex-col gap-3 -mt-24 ml-56">
                             <Button
                                 className="bg-black text-stone-50 font-bricolage"
                                 variant="contained"

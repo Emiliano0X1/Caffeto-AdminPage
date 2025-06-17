@@ -7,10 +7,7 @@ export default function Title() {
 
   const pedido = usePedido();
   console.log("Pedido en contexto:", pedido);
-
     return(
-
-
         <Box className="flex flex-col p-10 text-center text-black mt-40 bg-slate-50">
             <Typography variant="h4" className="font-bricolage"> Caffeto App Official Admin Page</Typography>
 

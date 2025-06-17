@@ -5,6 +5,7 @@ import {useEffect, useMemo, useState} from "react";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PedidoCard from "../Compoments/pedidoCard";
 import Link from "next/link";
+import SeparatorByStatus from "../Compoments/separatorByStatus";
 
 export const dynamic = "force-dynamic"; 
 
@@ -31,7 +32,9 @@ export default function pedidoBoard() {
 
         </Box>
 
-        <PedidoCard></PedidoCard>
+        <SeparatorByStatus></SeparatorByStatus>
+
+      {/*<PedidoCard></PedidoCard> */}
 
       </Box>
     );

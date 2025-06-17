@@ -1,6 +1,6 @@
 "use client";
 
-import { Dialog, DialogContent, DialogContentText, DialogTitle, MenuItem, DialogActions , Button} from "@mui/material";
+import { Dialog, DialogContent, DialogContentText, DialogTitle, MenuItem, DialogActions , Button, TextField} from "@mui/material";
 import { usePedido } from "../context";
 import React , { useState } from "react";
 import pedidoBoard from "../Pedido/page";
@@ -68,7 +68,7 @@ export default function ChangeOptions({open, setOpen}){
 
     const pedido = usePedido();
     const pedidoMain = pedido.pedido;
-    console.log('Pedido ID : ', pedidoMain.id)
+   // console.log('Pedido ID : ', pedidoMain.pedido_id)
 
     const handleClose = () => {
         setOpen(false)
@@ -125,7 +125,7 @@ export default function ChangeOptions({open, setOpen}){
             </DialogContent>
             <DialogActions>
                 <Button onClick = {handleClose}>Salir</Button>
-                <Button type="submit" onClick={() => patchPedido(pedidoMain.id,newStatus)}>Actualizar</Button>
+                <Button type="submit" onClick={() => patchPedido(pedidoMain.pedido_id,newStatus)}>Actualizar</Button>
             </DialogActions>
          </Dialog>      
         </React.Fragment>

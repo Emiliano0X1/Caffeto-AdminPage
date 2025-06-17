@@ -25,7 +25,7 @@ const currencies = [
       }
 
       const data = await response.json();
-      console.log("Se ha obtenido el producto correctmante" , data);
+      //console.log("Se ha obtenido el producto correctmante" , data);
       setProducto(data)
     } catch (error) {
       console.log('Hubo un error fatal en el sistema',error);

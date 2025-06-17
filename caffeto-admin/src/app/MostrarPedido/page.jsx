@@ -11,7 +11,7 @@ export default function PedidoView(){
 
     const pedido = usePedido()
     const pedidoMain = pedido.pedidoMain
-    console.log(pedido)
+    //console.log(pedido)
 
     //Funcion para poner icono dependiendo del tipo de producto
 
