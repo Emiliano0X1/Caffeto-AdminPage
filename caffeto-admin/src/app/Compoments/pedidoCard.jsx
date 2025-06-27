@@ -76,7 +76,24 @@ const fetchPedido = async (id) => {
         selectPedido(pedido);
         setOpen(true);
     }
-
+    
+        const manageHourFormat = (pedido) => {
+            const date = pedido.date;
+            const dateFinal = new Date(date)
+            dateFinal.setHours(dateFinal.getHours() - 6)
+    
+            //Minutes Formmat
+            const totalMinutes = dateFinal.getMinutes();
+            const hours = dateFinal.getHours() + Math.floor(totalMinutes / 60);
+            const minutes = totalMinutes % 60;
+    
+            const formattedHours = hours % 12 || 12;
+            const formatedMinutes = minutes.toString().padStart(2,'0');
+            const ampm = hours >= 12 ? 'pm' : 'am'
+    
+            return `${formattedHours} : ${formatedMinutes} ${ampm}`
+        }
+    
     return(
         <Box className=" relative min-h-screen flex flex-col gap-4 items-center justify-start ">
             {pedidos.map((pedido) => 
@@ -89,7 +106,7 @@ const fetchPedido = async (id) => {
                             <Typography variant="subtitle2" className="font-bricolage">Cliente : {pedido.cliente.cliente_name} </Typography>
                             <Typography variant="subtitle2" className="font-bricolage">Estatus : {pedido.status} </Typography>
                             <Typography variant="subtitle2" className="font-bricolage">Total : {pedido.total}</Typography>
-                            <Typography variant="subtitle2" className="font-bricolage">Hora del Pedido : {pedido.date}</Typography>
+                            <Typography variant="subtitle2" className="font-bricolage">Hora del Pedido : {manageHourFormat(pedido)}</Typography>
 
                         <Box className= " absolute flex flex-col gap-3 -mt-24 ml-56">
                             <Button

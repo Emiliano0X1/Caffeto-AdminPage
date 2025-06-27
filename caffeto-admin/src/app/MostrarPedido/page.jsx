@@ -45,7 +45,24 @@ export default function PedidoView(){
 
         else return "/Icons/noExist.png" //Cambiar por favor faltan mas iconos
     }
-  
+
+    const manageHourFormat = (pedido) => {
+        const date = pedido.date;
+        const dateFinal = new Date(date)
+        dateFinal.setHours(dateFinal.getHours() - 6)
+
+        //Minutes Formmat
+        const totalMinutes = dateFinal.getMinutes();
+        const hours = dateFinal.getHours() + Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+
+        const formattedHours = hours % 12 || 12;
+        const formatedMinutes = minutes.toString().padStart(2,'0');
+        const ampm = hours >= 12 ? 'pm' : 'am'
+
+        return `${formattedHours} : ${formatedMinutes} ${ampm}`
+    }
+
     return(
         <Box className="h-screen overflow-scroll bg-slate-50">
             <Box className = "flex flex-col text-center mt-10 justify-center text-black">
@@ -56,7 +73,7 @@ export default function PedidoView(){
                 </Link>
             </Box>
 
-            {pedidoMain.cliente? (
+            {pedidoMain && pedidoMain.cliente ? (
                 <>
 
             <Typography variant="h3" className="font-bricolage mt-3">Pedido # {pedidoMain.pedido_id}</Typography>
@@ -66,7 +83,8 @@ export default function PedidoView(){
                   <CardContent>
                     <Box className = "p-3 text-left">
                         <Typography variant="h6" color="black" className="font-bricolage">Informacion del Pedido</Typography>
-                        <Typography className="font-bricolage text-base">Fecha : {pedidoMain.date}</Typography>
+                        <Typography className="font-bricolage text-base">Fecha : {pedidoMain.date.slice(0,10)}</Typography>
+                        <Typography className="font-bricolage text-base">Hora : {manageHourFormat(pedidoMain)}</Typography>
                         <Typography className="font-bricolage text-base"> Total : $ {pedidoMain.total} pesos</Typography>
                         <Typography className="font-bricolage text-base"> Estatus : {pedidoMain.status}</Typography>
                     </Box> 
@@ -75,10 +93,10 @@ export default function PedidoView(){
             </Box>   
 
                     <Typography variant="h5" color="black" className="font-bricolage text-center mt-10">Productos</Typography>
-                        {pedidoMain.pedidoProductos.map((producto) => (
-
-                        <Box key = {producto.id} className = " relative mt-10 flex justify-center h-auto">
-                            <Card variant="outlined" className="border-black rounded-3xl shadow-lg w-11/12">
+                        {pedidoMain.pedidoProductos.map((producto, index) => (
+                    <React.Fragment key={index}>
+                        <Box className = " relative mt-10 flex justify-center h-auto">
+                            <Card  variant="outlined" className="border-black rounded-3xl shadow-lg w-11/12">
                                 <CardContent>
                                     <Box className = "pl-3 text-left">
                                             <Typography variant = "h6" color="black" className="font-bricolage">Producto #{producto.id}</Typography>
@@ -88,7 +106,7 @@ export default function PedidoView(){
                                             <Typography className="font-bricolage text-base"> Tipo : {producto.producto.type}</Typography>
 
                                             {producto.producto.type === "Frappe" ? (
-                                                <Typography> Tamaño : {producto.producto.size} </Typography>) : null}
+                                                <Typography  className="font-bricolage text-base"> Tamaño : {producto.size} </Typography>) : null}
                         
                                             {console.log("Extras del producto",producto.extras)}
 
@@ -105,20 +123,21 @@ export default function PedidoView(){
                                                 />
                                         
 
-                                            {producto.extras && producto.extras.map((extra) => (
-                                            <>
-                                            <Typography>Tipo de Extra : {extra.type}</Typography>
-                                            <Typography>Nombre de Extra : {extra.label}</Typography>
-                                            <Typography>Precio Extra : {extra.price}</Typography>
+                                            {producto.extras && producto.extras.map((extra, index) => (
+                                            <React.Fragment key={index}>
+                                                <Typography>Tipo de Extra : {extra.type}</Typography>
+                                                <Typography>Nombre de Extra : {extra.label}</Typography>
+                                                <Typography>Precio Extra : {extra.price}</Typography>
 
-                                            <Divider className="my-4" sx = {{borderStyle : 'dashed', borderWidth : "2px"}}></Divider>
-
-                                            </>
+                                                <Divider className="my-4" sx = {{borderStyle : 'dashed', borderWidth : "2px"}}></Divider>
+                                            </React.Fragment>
                                         ))}
                                     </Box>
                                 </CardContent>
                             </Card>
                         </Box>
+
+                        </React.Fragment>
                     ))} 
 
 
