@@ -2,9 +2,9 @@
 
 import { Dialog, DialogContent, DialogContentText, DialogTitle, MenuItem, DialogActions , Button, TextField} from "@mui/material";
 import { usePedido } from "../context";
-import React , { useState } from "react";
+import React , { useContext, useState } from "react";
 import pedidoBoard from "../Pedido/page";
-
+import { useRouter } from "next/router";
 
 const options = [
     {
@@ -33,36 +33,39 @@ const options = [
     },
 ]
 
+const ChangeOptions = ({open,setOpen}) => {
 
-const patchPedido = async (id, newStatus) => {
-    try{
-        const response = await fetch(`https://cafettoapp-backend.onrender.com/api/v1/pedido/${id}?status=${newStatus}`, {
-            method: 'PATCH',
-            headers : {
-                Accept : 'application/json',
-                'Content-Type' : 'application/json'
-              },
-              credentials : 'include',
-        })
+    const {jwtToken} = useContext(usePedido)
+    const router = useRouter();
 
-        console.log('Response : ' , response.status)
+    const patchPedido = async (id, newStatus) => {
+        try{
+            const response = await fetch(`https://cafettoapp-backend.onrender.com/api/v1/pedido/${id}?status=${newStatus}`, {
+                method: 'PATCH',
+                headers : {
+                    Accept : 'application/json',
+                    'Content-Type' : 'application/json',
+                    Authorization : `Bearer ${jwtToken}`
+                },
+                credentials : 'include',
+            })
 
-        if(!response.ok){
-            const errorData = await response.json()
-            console.log("No funciono correctamente", errorData)
+            console.log('Response : ' , response.status)
+
+            if(!response.ok){
+                const errorData = await response.json()
+                console.log("No funciono correctamente", errorData)
+            }
+
+            else{
+                console.log('Funciona correctamente');
+            }
+            
+        } catch(error){
+            console.log("Hubo un error fatal en el sistema", error)
         }
-
-        else{
-            console.log('Funciona correctamente');
-        }
-        
-    }catch(error){
-        console.log("Hubo un error fatal en el sistema", error)
     }
-}
 
-
-export default function ChangeOptions({open, setOpen}){
 
     const[newStatus,setNewStatus] = useState('')
 
@@ -130,4 +133,7 @@ export default function ChangeOptions({open, setOpen}){
          </Dialog>      
         </React.Fragment>
     )
+
 }
+
+export default ChangeOptions;

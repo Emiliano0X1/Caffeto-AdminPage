@@ -1,7 +1,7 @@
 "use client";
 
 import { Typography, Box, Card, CardContent,Button,Link } from "@mui/material";
-import React, { useEffect , useState} from "react";
+import React, { useContext, useEffect , useState} from "react";
 import { useRouter } from "next/navigation";
 import ChangeOptions from "./editarPedidoCard";
 import { usePedido } from "../context";
@@ -9,10 +9,15 @@ import { usePedido } from "../context";
 const PedidoCard = ({status}) => {
 
  const [pedidos,setPedidos] = useState([]);
+ const {jwtToken} = useContext(usePedido)
 
  const fecthPedidos = async () => {
     try{
-        const response = await fetch(`https://cafettoapp-backend.onrender.com/api/v1/pedido/status?status=${status}`);
+        const response = await fetch(`https://cafettoapp-backend.onrender.com/api/v1/pedido/status?status=${status}`, {
+            headers : {
+                Authorization : `Bearer ${jwtToken}`
+            }
+        });
 
         if(!response.ok){
             console.log("No existe el pedido");
@@ -33,7 +38,11 @@ useEffect(() => {
 
 const fetchPedido = async (id) => {
     try{
-        const response = await fetch(`https://cafettoapp-backend.onrender.com/api/v1/pedido/uni/${id}`)
+        const response = await fetch(`https://cafettoapp-backend.onrender.com/api/v1/pedido/uni/${id}`, {
+            headers : {
+                Authorization : `Bearer ${jwtToken}`
+            }
+        })
 
         if(!response.ok){
             console.log("Response :", response.status)

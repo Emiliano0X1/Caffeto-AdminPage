@@ -1,12 +1,51 @@
+"use client";
+
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { usePedido } from "../context";
+import { useRouter } from "next/router";
+import React from "react";
 
 export default function Login(){
 
     const[email,setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const {setJwtToken} = useContext(usePedido)
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
+        const router = useRouter();
+        try{
+            const response = await fetch("https://cafettoapp-backend.onrender.com/api/v1/cliente/login", {
+                method : 'POST',
+                headers : {
+                    Accept : 'application/json',
+                    'Content-Type' : 'application/json',
+                },
+                credentials : 'include',
+                body : JSON.stringify({
+                    email : email,
+                    password : password
+                })
+            })
+
+            if(!response.ok){
+                const errorResponse = await response.json();
+                console.log("Las credenciales no son correctas", errorResponse)
+            }
+
+            const data = await response.json();
+            const responseToken = Object.keys(data)[0];
+            const tokenStart = responseToken.indexOf("token=") + 6;
+            const tokenEnd = responseToken.indexOf(")",tokenStart);
+            const token = responseToken.substring(tokenStart,tokenEnd);
+
+            setJwtToken(token)
+            router.push('/Dashboard')
+            console.log("Token Resultante" + token)
+
+        } catch(error){
+            console.log(error)
+        }
 
     }
 
@@ -46,7 +85,14 @@ export default function Login(){
                 </TextField>       
             </Box>
             <Box className = "flex justify-center items-center mt-28">
-                <Button size="large" variant="contained" className=" bg-slate-950 text-slate-50 text-xs w-2/3">Inicia Sesión</Button>
+                <Button 
+                    size="large" 
+                    variant="contained" 
+                    className=" bg-slate-950 text-slate-50 text-xs w-2/3" 
+                    onClick={() => handleLogin()}
+                >
+                    Inicia Sesión
+                </Button>
             </Box>
         </Box>
     )

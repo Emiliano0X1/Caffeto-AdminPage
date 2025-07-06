@@ -1,7 +1,8 @@
 "use client"
 
 import { Typography,Box, TextField, MenuItem,Button,Alert } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { usePedido } from "../context";
 
 
 const currencies = [
@@ -15,9 +16,17 @@ const currencies = [
     },
   ];
 
+const ChangeStatus = ({id}) => {
+
+  const {jwtToken} = useContext(usePedido)
+
   const fetchProducto = async(id,setProducto) => {
     try{
-      const response = await fetch(`https://cafettoapp-backend.onrender.com/api/v1/producto/${id}`);
+      const response = await fetch(`https://cafettoapp-backend.onrender.com/api/v1/producto/${id}`, {
+          headers : {
+            Authorization : `Bearer ${jwtToken}`
+          }
+      });
 
       if(!response.ok){
         console.log('No se pudo tener el producto')
@@ -39,7 +48,8 @@ const currencies = [
         method : 'PATCH',
         headers : {
           Accept : 'application/json',
-          'Content-Type' : 'application/json'
+          'Content-Type' : 'application/json',
+          Authorization : `Bearer ${jwtToken}`
         },
         credentials : 'include',
       })
@@ -63,9 +73,6 @@ const currencies = [
       console.log('hubo un error fatal', error)
     }
   };
-
-
-export default function ChangeStatus({id}){
 
     const[status,setStatus] = useState('');
     const[alert, setAlert] = useState(null);
@@ -108,3 +115,5 @@ export default function ChangeStatus({id}){
         </Box>
     );
 }
+
+export default ChangeStatus;

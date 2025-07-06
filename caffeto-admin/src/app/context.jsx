@@ -8,6 +8,7 @@ const PedidoProvider = ({children}) => {
 
     const[pedido, setPedido] = useState({});
     const[pedidoMain,setPedidoMain] = useState({});
+    const[jwtToken, setJwtToken] = useState("");
 
     const selectPedido = (pedidoMain) => {
         setPedido(pedidoMain);
@@ -19,8 +20,9 @@ const PedidoProvider = ({children}) => {
         console.log("Este es el pedido Individual: ", pedido);
     }
 
+
     return(
-        <PedidoContext.Provider value = {{pedido, selectPedido,pedidoMain,pedidoFetching}}>
+        <PedidoContext.Provider value = {{pedido, selectPedido,pedidoMain,pedidoFetching,jwtToken,setJwtToken}}>
             {children}
         </PedidoContext.Provider>
     )
