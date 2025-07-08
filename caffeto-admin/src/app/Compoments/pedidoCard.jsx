@@ -5,22 +5,48 @@ import React, { useContext, useEffect , useState} from "react";
 import { useRouter } from "next/navigation";
 import ChangeOptions from "./editarPedidoCard";
 import { usePedido } from "../context";
+import { jwtDecode } from "jwt-decode";
 
 const PedidoCard = ({status}) => {
 
  const [pedidos,setPedidos] = useState([]);
- const {jwtToken} = useContext(usePedido)
+ const jwtToken = usePedido();
+
+  const validateExpToken = () => {
+         const decodedToken = jwtDecode(jwtToken.jwtToken)
+         console.log(decodedToken)
+
+         const now = Math.floor(Date.now() / 1000);
+         const exp = decodedToken.exp;
+
+         if(now > exp){
+            return true;
+         }
+
+         return false;
+    }
 
  const fecthPedidos = async () => {
+
+     console.log(jwtToken.jwtToken)
+
     try{
         const response = await fetch(`https://cafettoapp-backend.onrender.com/api/v1/pedido/status?status=${status}`, {
+            method : 'GET',
             headers : {
-                Authorization : `Bearer ${jwtToken}`
-            }
+                Authorization : `Bearer ${jwtToken.jwtToken}`
+            },
+
+            credentials : 'include'
         });
 
         if(!response.ok){
             console.log("No existe el pedido");
+        }
+
+        if(validateExpToken()){
+            localStorage.removeItem("jwtToken")
+            router.push("/")
         }
 
         const data = await response.json();
@@ -40,7 +66,7 @@ const fetchPedido = async (id) => {
     try{
         const response = await fetch(`https://cafettoapp-backend.onrender.com/api/v1/pedido/uni/${id}`, {
             headers : {
-                Authorization : `Bearer ${jwtToken}`
+                Authorization : `Bearer ${jwtToken.jwtToken}`
             }
         })
 
@@ -48,6 +74,10 @@ const fetchPedido = async (id) => {
             console.log("Response :", response.status)
         }
 
+        if(validateExpToken()){
+            localStorage.removeItem("jwtToken")
+            router.push("/")
+        }
         const data = await response.json();
         console.log("Si jalo el fetch")
         console.log("Status : ", response.status)

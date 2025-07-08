@@ -8,7 +8,7 @@ const PedidoProvider = ({children}) => {
 
     const[pedido, setPedido] = useState({});
     const[pedidoMain,setPedidoMain] = useState({});
-    const[jwtToken, setJwtToken] = useState("");
+    const[jwtToken, setJwtToken] = useState(typeof window !== "undefined" ? localStorage.getItem("jwtToken") || "" : "");
 
     const selectPedido = (pedidoMain) => {
         setPedido(pedidoMain);
@@ -20,9 +20,13 @@ const PedidoProvider = ({children}) => {
         console.log("Este es el pedido Individual: ", pedido);
     }
 
+    const tokenFetching = (token) => {
+        setJwtToken(token)
+        localStorage.setItem("jwtToken", token)
+    }
 
     return(
-        <PedidoContext.Provider value = {{pedido, selectPedido,pedidoMain,pedidoFetching,jwtToken,setJwtToken}}>
+        <PedidoContext.Provider value = {{pedido, selectPedido,pedidoMain,pedidoFetching,jwtToken,tokenFetching}}>
             {children}
         </PedidoContext.Provider>
     )

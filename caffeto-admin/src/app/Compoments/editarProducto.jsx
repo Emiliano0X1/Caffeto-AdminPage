@@ -3,6 +3,7 @@
 import { Typography,Box, TextField, MenuItem,Button,Alert } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { usePedido } from "../context";
+import { useRouter } from "next/navigation"
 
 
 const currencies = [
@@ -18,15 +19,21 @@ const currencies = [
 
 const ChangeStatus = ({id}) => {
 
-  const {jwtToken} = useContext(usePedido)
-
+  const jwtToken = usePedido();
+  const router = useRouter();
+  
   const fetchProducto = async(id,setProducto) => {
     try{
       const response = await fetch(`https://cafettoapp-backend.onrender.com/api/v1/producto/${id}`, {
           headers : {
-            Authorization : `Bearer ${jwtToken}`
+            Authorization : `Bearer ${jwtToken.jwtToken}`
           }
       });
+
+      if(validateExpToken()){
+          localStorage.removeItem("jwtToken")
+          router.push("/")
+        }
 
       if(!response.ok){
         console.log('No se pudo tener el producto')
@@ -41,6 +48,19 @@ const ChangeStatus = ({id}) => {
     }
   }
 
+   const validateExpToken = () => {
+      const decodedToken = jwtDecode(jwtToken.jwtToken)
+      console.log(decodedToken)
+      
+      const now = Math.floor(Date.now() / 1000);
+      const exp = decodedToken.exp;
+      
+      if(now > exp){
+        return true;
+      }
+      
+      return false;
+    }
 
   const changeStatus = async (id,estatus,setAlert,setProducto) =>{
     try{
@@ -49,12 +69,17 @@ const ChangeStatus = ({id}) => {
         headers : {
           Accept : 'application/json',
           'Content-Type' : 'application/json',
-          Authorization : `Bearer ${jwtToken}`
+          Authorization : `Bearer ${jwtToken.jwtToken}`
         },
         credentials : 'include',
       })
 
       console.log('Response : ',response.status);
+
+      if(validateExpToken()){
+        localStorage.removeItem("jwtToken");
+        router.push("/")
+      }
 
       if(!response.ok){
         const errorData = await response.json()

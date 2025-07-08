@@ -4,7 +4,8 @@ import { Dialog, DialogContent, DialogContentText, DialogTitle, MenuItem, Dialog
 import { usePedido } from "../context";
 import React , { useContext, useState } from "react";
 import pedidoBoard from "../Pedido/page";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { jwtDecode } from "jwt-decode";
 
 const options = [
     {
@@ -33,10 +34,27 @@ const options = [
     },
 ]
 
+
+
 const ChangeOptions = ({open,setOpen}) => {
 
-    const {jwtToken} = useContext(usePedido)
+    const jwtToken = usePedido();
     const router = useRouter();
+    
+    const validateExpToken = () => {
+        const decodedToken = jwtDecode(jwtToken.jwtToken)
+        console.log(decodedToken)
+    
+        const now = Math.floor(Date.now() / 1000);
+        const exp = decodedToken.exp;
+    
+        if(now > exp){
+            return true;
+        }
+    
+        return false;
+    }
+   // const router = useRouter();
 
     const patchPedido = async (id, newStatus) => {
         try{
@@ -45,18 +63,22 @@ const ChangeOptions = ({open,setOpen}) => {
                 headers : {
                     Accept : 'application/json',
                     'Content-Type' : 'application/json',
-                    Authorization : `Bearer ${jwtToken}`
+                    Authorization : `Bearer ${jwtToken.jwtToken}`
                 },
                 credentials : 'include',
             })
 
             console.log('Response : ' , response.status)
 
+            if(validateExpToken()){
+                localStorage.removeItem("jwtToken")
+                router.push("/")
+            }
+
             if(!response.ok){
                 const errorData = await response.json()
                 console.log("No funciono correctamente", errorData)
             }
-
             else{
                 console.log('Funciona correctamente');
             }

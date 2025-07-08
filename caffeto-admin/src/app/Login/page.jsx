@@ -3,17 +3,18 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { usePedido } from "../context";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function Login(){
 
     const[email,setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const {setJwtToken} = useContext(usePedido)
+    const {tokenFetching} = usePedido();
+    const jwtToken = usePedido();
+    const router = useRouter();
 
     const handleLogin = async () => {
-        const router = useRouter();
         try{
             const response = await fetch("https://cafettoapp-backend.onrender.com/api/v1/cliente/login", {
                 method : 'POST',
@@ -39,7 +40,12 @@ export default function Login(){
             const tokenEnd = responseToken.indexOf(")",tokenStart);
             const token = responseToken.substring(tokenStart,tokenEnd);
 
-            setJwtToken(token)
+            if(token){
+                tokenFetching(token)
+                localStorage.setItem("jwtToken", token)
+            }
+            
+            console.log(jwtToken)
             router.push('/Dashboard')
             console.log("Token Resultante" + token)
 
@@ -71,7 +77,7 @@ export default function Login(){
 
                 <TextField
                     id = "outlined-number"
-                    className="font-bricolage w-10/12s mt-10"
+                    className="font-bricolage w-10/12 mt-10"
                     label = "Contraseña de Admin"
                     type = "string"
                     size="medium"
