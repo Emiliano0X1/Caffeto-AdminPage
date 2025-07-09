@@ -43,7 +43,7 @@ const ChangeOptions = ({open,setOpen}) => {
     
     const validateExpToken = () => {
         const decodedToken = jwtDecode(jwtToken.jwtToken)
-        console.log(decodedToken)
+        //console.log(decodedToken)
     
         const now = Math.floor(Date.now() / 1000);
         const exp = decodedToken.exp;

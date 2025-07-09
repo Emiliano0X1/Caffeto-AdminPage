@@ -4,6 +4,7 @@ import { Typography,Box, TextField, MenuItem,Button,Alert } from "@mui/material"
 import { useContext, useEffect, useState } from "react";
 import { usePedido } from "../context";
 import { useRouter } from "next/navigation"
+import { jwtDecode } from "jwt-decode";
 
 
 const currencies = [
@@ -21,6 +22,20 @@ const ChangeStatus = ({id}) => {
 
   const jwtToken = usePedido();
   const router = useRouter();
+
+  const validateExpToken = () => {
+      const decodedToken = jwtDecode(jwtToken.jwtToken)
+      //console.log(decodedToken)
+      
+      const now = Math.floor(Date.now() / 1000);
+      const exp = decodedToken.exp;
+      
+      if(now > exp){
+        return true;
+      }
+      
+      return false;
+  }
   
   const fetchProducto = async(id,setProducto) => {
     try{
@@ -47,20 +62,6 @@ const ChangeStatus = ({id}) => {
       console.log('Hubo un error fatal en el sistema',error);
     }
   }
-
-   const validateExpToken = () => {
-      const decodedToken = jwtDecode(jwtToken.jwtToken)
-      console.log(decodedToken)
-      
-      const now = Math.floor(Date.now() / 1000);
-      const exp = decodedToken.exp;
-      
-      if(now > exp){
-        return true;
-      }
-      
-      return false;
-    }
 
   const changeStatus = async (id,estatus,setAlert,setProducto) =>{
     try{

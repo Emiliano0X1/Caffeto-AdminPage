@@ -28,7 +28,7 @@ const PedidoCard = ({status}) => {
 
  const fecthPedidos = async () => {
 
-     console.log(jwtToken.jwtToken)
+     //console.log(jwtToken.jwtToken)
 
     try{
         const response = await fetch(`https://cafettoapp-backend.onrender.com/api/v1/pedido/status?status=${status}`, {
