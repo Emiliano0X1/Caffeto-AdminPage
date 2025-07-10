@@ -14,13 +14,13 @@ const options = [
     },
 
     {
-        label : "El producto ya esta listo",
-        value : "LISTO"
+        label : "El pedido esta en preparación",
+        value : "EN PREPARACION"
     },
 
     {
-        label : "El pedido esta en preparacion",
-        value : "EN PREPARACION"
+        label : "El producto ya esta listo",
+        value : "LISTO"
     },
 
     {

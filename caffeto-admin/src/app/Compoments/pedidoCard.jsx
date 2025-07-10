@@ -14,7 +14,7 @@ const PedidoCard = ({status}) => {
 
   const validateExpToken = () => {
          const decodedToken = jwtDecode(jwtToken.jwtToken)
-         console.log(decodedToken)
+         //console.log(decodedToken)
 
          const now = Math.floor(Date.now() / 1000);
          const exp = decodedToken.exp;
@@ -97,7 +97,7 @@ const fetchPedido = async (id) => {
     const[open,setOpen] = useState(false);
 
     const managePedido = async (pedido) =>{
-        console.log("Guardando pedido:",pedido);
+        //console.log("Guardando pedido:",pedido);
         const {status,data} = await fetchPedido(pedido.pedido_id)
 
         if(status === 200){

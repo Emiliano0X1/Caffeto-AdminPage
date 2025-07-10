@@ -43,6 +43,8 @@ export default function PedidoView(){
 
         else if(type === 'Galleta') return "/Icons/galletaIcon.png"
 
+        else if(type === 'Rebanada') return "/Icons/rebanadaIcon.png"
+
         else return "/Icons/noExist.png" //Cambiar por favor faltan mas iconos
     }
 
@@ -82,7 +84,7 @@ export default function PedidoView(){
                 <Card variant="outlined" className="border-black rounded-3xl shadow-lg w-11/12" key = {pedidoMain.id}>
                   <CardContent>
                     <Box className = "p-3 text-left">
-                        <Typography variant="h6" color="black" className="font-bricolage">Informacion del Pedido</Typography>
+                        <Typography variant="h6" color="black" className="font-bricolage">Información del Pedido</Typography>
                         <Typography className="font-bricolage text-base">Fecha : {pedidoMain.date.slice(0,10)}</Typography>
                         <Typography className="font-bricolage text-base">Hora : {manageHourFormat(pedidoMain)}</Typography>
                         <Typography className="font-bricolage text-base"> Total : $ {pedidoMain.total} pesos</Typography>
@@ -125,9 +127,9 @@ export default function PedidoView(){
 
                                             {producto.extras && producto.extras.map((extra, index) => (
                                             <React.Fragment key={index}>
-                                                <Typography>Tipo de Extra : {extra.type}</Typography>
-                                                <Typography>Nombre de Extra : {extra.label}</Typography>
-                                                <Typography>Precio Extra : {extra.price}</Typography>
+                                                <Typography>Tipo: {extra.type}</Typography>
+                                                <Typography>Nombre: {extra.label}</Typography>
+                                                <Typography>Precio: {extra.price}</Typography>
 
                                                 <Divider className="my-4" sx = {{borderStyle : 'dashed', borderWidth : "2px"}}></Divider>
                                             </React.Fragment>
@@ -148,8 +150,8 @@ export default function PedidoView(){
                     <Box className = "p-3 text-left">
                         <Typography variant="h6" color="black" className="font-bricolage" >Informacion del Cliente</Typography>
                         <Typography className="font-bricolage text-base">Nombre : {pedidoMain.cliente.cliente_name}</Typography>
-                        <Typography className="font-bricolage text-base"> Telefono : {pedidoMain.cliente.cliente_telefono}</Typography>
-                        <Typography className="font-bricolage text-base">Direccion : {pedidoMain.cliente.cliente_locacion}</Typography>
+                        <Typography className="font-bricolage text-base"> Teléfono : {pedidoMain.cliente.cliente_telefono}</Typography>
+                        <Typography className="font-bricolage text-base">Dirección : {pedidoMain.cliente.cliente_locacion}</Typography>
                     </Box> 
                     </CardContent> 
                 </Card>

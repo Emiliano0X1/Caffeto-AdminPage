@@ -1,26 +1,39 @@
 "use client";
 
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { usePedido } from "../context";
 import { useRouter } from "next/navigation";
 import React from "react";
 import BasicModalInfo from "../Compoments/modalInfo";
+import { jwtDecode } from "jwt-decode";
 
 export default function Login(){
     const[email,setEmail] = useState("");
     const [password, setPassword] = useState("");
     const {tokenFetching} = usePedido();
     const jwtToken = usePedido();
-    const router = useRouter();
 
     const[open, setOpen] = useState(false)
     const[status,setStatus] = useState("");
+    const[isAdmin, setAdmin] = useState(false);
 
     const handleOpen = () => setOpen(true)
 
     const handleClose = () => {
         setOpen(false)  
+    }
+
+    const validateRoleAdmin = () => {
+        const decodedToken = jwtDecode(jwtToken.jwtToken);
+        const role = decodedToken.role;
+        //console.log("decodedToken " , decodedToken)
+        //console.log("El rol del Admin " , role)
+
+        if(role === "ADMIN"){
+            setAdmin(true)
+        }
+
     }
 
     const handleLogin = async () => {
@@ -38,11 +51,11 @@ export default function Login(){
                 })
             })
 
-            console.log(response.status)
+            handleOpen();
+            //console.log(response.status)
             setStatus(response.status)
-            console.log(status)
-            handleOpen()
-            console.log(open)
+           // console.log(status)
+           // console.log(open)
             if(!response.ok){
                 const errorResponse = await response.json();
                 console.log("Las credenciales no son correctas", errorResponse)
@@ -55,19 +68,25 @@ export default function Login(){
             const token = responseToken.substring(tokenStart,tokenEnd);
             
             if(token){
+                //console.log("Checando si el token es valido")
+                //console.log("Admin : " , isAdmin)
                 tokenFetching(token)
                 localStorage.setItem("jwtToken", token)
             }
-            
-            console.log(jwtToken)
-            console.log("Token Resultante" + token)
+            //console.log(jwtToken)
+            //console.log("Token Resultante" + token)
 
-        } catch(error){
-            
+        } catch(error){     
             console.log(error)
         }
 
     }
+
+    useEffect(() => {
+        if(jwtToken.jwtToken){
+            validateRoleAdmin()
+        }
+    }, [jwtToken.jwtToken])
 
     return(
         <Box className = "max-h-screen h-screen flex flex-col bg-slate-50 p-10">
@@ -115,7 +134,7 @@ export default function Login(){
                 </Button>
 
                 {open && status && (
-                    <BasicModalInfo status={status} onClose = {handleClose}></BasicModalInfo>
+                    <BasicModalInfo status={status} onClose = {handleClose} isAdmin={isAdmin}></BasicModalInfo>
                 )}
             </Box>
         </Box>

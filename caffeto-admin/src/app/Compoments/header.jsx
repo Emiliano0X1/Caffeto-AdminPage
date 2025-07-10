@@ -9,7 +9,7 @@ export default function Title() {
   console.log("Pedido en contexto:", pedido);
     return(
         <Box className="flex flex-col p-10 text-center text-black mt-40 bg-slate-50">
-            <Typography variant="h4" className="font-bricolage"> Caffeto App Official Admin Page</Typography>
+            <Typography variant="h4" className="font-bricolage"> Cafetto App Official Admin Page</Typography>
 
             <Box className="flex-1 h-full w-full text-center text-zinc-900 mt-10">
                 <Typography className="font-bricolage">By Emiliano Gonzalez</Typography>
