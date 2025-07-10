@@ -5,14 +5,23 @@ import { useContext, useState } from "react";
 import { usePedido } from "../context";
 import { useRouter } from "next/navigation";
 import React from "react";
+import BasicModalInfo from "../Compoments/modalInfo";
 
 export default function Login(){
-
     const[email,setEmail] = useState("");
     const [password, setPassword] = useState("");
     const {tokenFetching} = usePedido();
     const jwtToken = usePedido();
     const router = useRouter();
+
+    const[open, setOpen] = useState(false)
+    const[status,setStatus] = useState("");
+
+    const handleOpen = () => setOpen(true)
+
+    const handleClose = () => {
+        setOpen(false)  
+    }
 
     const handleLogin = async () => {
         try{
@@ -29,27 +38,32 @@ export default function Login(){
                 })
             })
 
+            console.log(response.status)
+            setStatus(response.status)
+            console.log(status)
+            handleOpen()
+            console.log(open)
             if(!response.ok){
                 const errorResponse = await response.json();
                 console.log("Las credenciales no son correctas", errorResponse)
             }
-
+            
             const data = await response.json();
             const responseToken = Object.keys(data)[0];
             const tokenStart = responseToken.indexOf("token=") + 6;
             const tokenEnd = responseToken.indexOf(")",tokenStart);
             const token = responseToken.substring(tokenStart,tokenEnd);
-
+            
             if(token){
                 tokenFetching(token)
                 localStorage.setItem("jwtToken", token)
             }
             
             console.log(jwtToken)
-            router.push('/Dashboard')
             console.log("Token Resultante" + token)
 
         } catch(error){
+            
             console.log(error)
         }
 
@@ -99,6 +113,10 @@ export default function Login(){
                 >
                     Inicia Sesión
                 </Button>
+
+                {open && status && (
+                    <BasicModalInfo status={status} onClose = {handleClose}></BasicModalInfo>
+                )}
             </Box>
         </Box>
     )

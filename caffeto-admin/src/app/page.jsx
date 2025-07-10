@@ -19,7 +19,7 @@ export default function ClientLayout({ children }) {
     }
   }
 
-  if(jwtToken){
+  if(jwtToken && typeof jwtToken === "string"){
       checkTimeExp();
   }
 
